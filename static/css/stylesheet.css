@@ -1,0 +1,568 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap");
+/* html {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+} */
+body, html{
+    background:#eeeeee;
+    height: 100%;
+    width: 100%;    
+}
+
+.embossed {
+    /* text-shadow: 12px 2px 3px rgba(0,0,0,0.8); */
+    font: bold 200px arial, sans-serif;
+    background-color: #262626;
+    color: transparent;
+    text-shadow: 2px 2px 3px rgb(56,56,56, 0.8);
+    -webkit-background-clip: text;
+       -moz-background-clip: text;
+            background-clip: text;
+	font-family: "Inter", sans-serif;
+    font-weight: 800;
+    width: 100%;
+    font-size: 6em;
+}
+
+.container{
+    width: 90%;
+}
+
+img {
+    display: block;
+    max-width: 75%;
+    max-height: 75%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.imglink {
+    position: absolute;
+    border: 5px solid black;
+    border-radius: 5vh;
+    cursor: pointer;
+    font-size: 4vh;
+}
+
+.imglink div {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+/* end clearfix */
+
+.btn-lg:active,
+.btn-lg:focus,
+.btn-lg.active,
+.btn-lg:focus:active {
+    background-image: none;
+    outline: none;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn-lg {
+    background-image: none;
+    outline: none;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding: 1vh 1vh;
+    font-size: 4vh;
+    border-radius: 1vh;
+    width: 8%;
+}
+
+/* ~ PAGE TOP MESSAGE BOX ~ */
+.headertext {
+    display: inline;
+    height: 5vh;
+    text-align: center;
+    margin-bottom: 3vh;
+}
+
+.headertext h1 {
+    position: relative;
+    text-align: center;
+    font-size: 2em;
+}
+
+.indicator {
+    display: inline;
+    height: 16vh;
+    text-align: center;
+    font-size: 5vh;
+}
+
+.indicator h1 {
+    position: relative;
+    text-align: center;
+}
+
+/* ~ GAME BOARD ~ */
+
+.canvas-container {
+    padding: 0%;
+}
+
+.canvas {
+    display: inline-block;
+    line-height: 0px;
+    border-radius: 1%;
+    /* background-color: #000000; */
+    padding: .13vw;
+    z-index: 4;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.usedTile,
+.tile {
+    display: inline-block;
+    height: 7.1vw;
+    /* 8.95 for 30-column, 10.20 for 24-col, 7.1 for 24-col */
+    width: 7.1vw;
+    /* 7.1 for 26 (?) col */
+    background-color: #c0c0c0;
+    margin: .14vw;
+    z-index: 5;
+    overflow: hidden;
+    white-space: nowrap;
+    box-shadow: inset 0 0 5px rgb(109, 109, 109);
+
+}
+
+.tile {
+    cursor: pointer;
+}
+
+.blackPiece,
+.whitePiece {
+    vertical-align: middle;
+    position: relative;
+    margin: 12.5% auto 0% auto;
+    border-radius: 100%;
+    height: 75%;
+    width: 75%;
+    z-index: 7;
+}
+
+.blackShadow,
+.whiteShadow {
+    vertical-align: middle;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: -75%;
+    border-radius: 100%;
+    height: 75%;
+    width: 75%;
+    z-index: 6;
+}
+
+.blackShadow {
+    box-shadow: 0px 0px 3vw .7vw white;
+}
+
+.whiteShadow {
+    box-shadow: 0px 0px 3vw .7vw #333333;
+}
+
+.blackChoice,
+.whiteChoice {
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    margin: 12.5% auto auto auto;
+    background-color: #999999;
+    border-radius: 100%;
+    border-style: dashed;
+    border-width: 0.6vh;
+    opacity: 1.0;
+    height: 75%;
+    width: 75%;
+    z-index: 7;
+}
+
+.chosenTile {
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    margin: -75% auto 12.5% 12.5%;
+    border-width: 0.6vh;
+    height: 75%;
+    width: 75%;
+    z-index: 8;
+    font-size: 5.115vw;
+}
+
+.blackChoice {
+    border-color: black;
+}
+
+.whiteChoice {
+    border-color: white;
+}
+
+.blackPiece,
+.blackMark {
+    background-color: black;
+}
+
+.whitePiece,
+.whiteShadow,
+.whiteMark,
+.blackShadow {
+    background-color: white;
+}
+
+._blank_ {
+    min-height: 1.6vh;
+}
+
+#about_modal_btn {
+    position: absolute;
+    top: 91vh;
+    left: 2vw;
+    font-size: 3vh;
+}
+
+#show_random_btn {
+    position: absolute;
+    top: 84vh;
+    left: 2vw;
+    font-size: 3vh;
+}
+
+#scale-label {
+    font-size: 3vh;
+    text-align: center;
+    cursor: none;
+}
+
+input[type=radio] {
+    background-color: #333333;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 2vw;
+    height: 2vw;
+}
+
+.radio-bar {
+    min-height: 5vh;
+}
+
+/* ~ MODAL DIALOGS ~ */
+
+.modal-backdrop.fade {
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.modal-backdrop.fade.in {
+    opacity: 0.0;
+    filter: alpha(opacity=0);
+}
+
+#welcome-modal .modal-dialog,
+#block-modal .modal-dialog {
+    font-size: 1.25vw;
+    overflow: hidden;
+    white-space: normal;
+    line-height: 1em;
+    position: absolute;
+    width: 80vw;
+    height: 80vh;
+    min-height: 500px;
+    top: 10vh;
+    left: 10vw;
+}
+
+#welcome-modal .modal-dialog .modal-content,
+#block-modal .modal-dialog .modal-content {
+    height: 75vh;
+    min-height: 500px;
+}
+
+#welcome-modal .modal-dialog .modal-content .modal-body,
+#block-modal .modal-dialog .modal-content .modal-body {
+    height: 85%;
+    line-height: 1.5;
+}
+
+#welcome-modal .modal-dialog .modal-content .modal-body form {
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+#welcome-modal .modal-dialog .modal-content .modal-footer,
+#block-modal .modal-dialog .modal-content .modal-footer {
+    height: 15%;
+    text-align: center;
+}
+
+#welcome-modal .modal-dialog .modal-content .modal-footer .btn,
+#block-modal .modal-dialog .modal-content .modal-footer .btn {
+    position: relative;
+    margin-top: 1.5vh;
+}
+
+.consent-text {
+    overflow: auto;
+    max-height: 100%
+}
+
+#feedback-modal .modal-dialog {
+    /* font-size:1.2vw; */
+    overflow: hidden;
+    white-space: normal;
+    line-height: 1.2em;
+    position: absolute;
+    width: 35%;
+    /* height: 30%; */
+    top: 33%;
+    left: 32.5%;
+    min-height: 225px;
+}
+
+#feedback-modal .modal-dialog .modal-content {
+    height: 100%;
+}
+
+#feedback-modal .modal-dialog .modal-content .modal-header {
+    height: 30%;
+    text-align: center;
+    min-height: 75px;
+}
+
+#feedback-modal .modal-dialog .modal-content .modal-body {
+    height: 40%;
+    text-align: center;
+    min-height: 75px
+}
+
+#feedback-modal .modal-dialog .modal-content .modal-footer {
+    /* height:30%; */
+    text-align: center;
+    /* min-height: 75px; */
+}
+
+#about-modal .modal-dialog .modal-content .modal-body p {
+    font-size: 3vh;
+}
+
+#visTimerContainerOpp {
+    left: 8vw;
+    height: 29.78vw;
+    width: 6vw;
+    position: relative;
+}
+
+#visTimerOpp {
+    height: 29.78vw;
+    width: 6vw;
+    background-color: white;
+    position: absolute;
+    bottom: 0px;
+}
+
+#numTimerContainerOpp {
+    left: 8vw;
+    top: -2vh;
+    width: 6vw;
+    position: relative;
+    text-align: center;
+}
+
+#numTimerOpp {
+    text-align: center;
+    font-size: 7vh;
+    width: 6vw;
+    position: absolute;
+}
+
+#visTimerContainer {
+    height: 29.78vw;
+    width: 6vw;
+    position: relative;
+}
+
+#visTimer {
+    height: 29.78vw;
+    width: 6vw;
+    background-color: white;
+    position: absolute;
+    bottom: 0px;
+}
+
+#numTimerContainer {
+    top: -2vh;
+    width: 6vw;
+    position: relative;
+    text-align: center;
+}
+
+#numTimer {
+    text-align: center;
+    font-size: 7vh;
+    width: 6vw;
+    position: absolute;
+}
+
+#nav-wrap {
+    height: 8vh;
+    font-size: 3vh;
+    opacity: 1;
+    background: #ffffff;
+    text-align: center;
+    border: 1px dashed black;
+}
+
+#nav-wrap A {
+    display: inline-block;
+    color: #303030;
+    text-decoration: none;
+    padding: 12px 20px 0 20px;
+}
+#nav-wrap button {
+    display: inline-block;
+    color: #303030;
+    text-decoration: none;
+    padding: 12px 20px 0 20px;
+}
+
+#nav-wrap A:hover,
+A:active {
+    background: #303030;
+}
+
+.label {
+    font-size: 14px;
+    /* Adjust size as needed */
+    color: #000;
+    /* Adjust color as needed */
+    pointer-events: none;
+    /* Ensure labels don't interfere with game interaction */
+    text-align: center;
+}
+
+#logout-button{
+    border: none;
+    background: none;
+    
+}
+/* Existing CSS... */
+
+/* Media query for mobile devices */
+@media only screen and (max-width: 767px) {
+    #nav-wrap {
+        height: 8vh;
+        font-size: 3vh;
+        opacity: 1;
+        background: #ffffff;
+        text-align: center;
+        border: 1px dashed black;
+    }
+
+    .canvas-container {
+		margin-top: 5vh;
+        transform: rotate(-90deg);
+        width: 126vw;
+        /* 80% of the view width (since it's rotated) */
+        height: 56vw;
+        /* 80% of the view width */
+        position: absolute;
+        top: 50%;
+        /* Center the board vertically */
+        left: 33%;
+        /* Center the board horizontally */
+        transform-origin: center;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        /* background-color: green; */
+        /* For debugging purposes */
+    }
+
+    /* Adjusting tile size for mobile view */
+    .usedTile,
+    .tile {
+        height: calc(56vw / 4);
+        /* Assuming 9 rows, adjust if different */
+        width: calc(126vw / 9);
+        /* Assuming 9 columns, adjust if different */
+    }
+
+    .label {
+        font-size: 12px;
+        /* Adjust label size as needed */
+    }
+
+    .headertext {
+        display: block;
+		margin-top: 6vh;
+        /* Show header on mobile to indicate turn */
+    }
+
+    .headertext h1 {
+        font-size: 2.5vh;
+    }
+
+    /* Ensure modal dialogs are properly sized */
+    #feedback-modal .modal-dialog {
+        width: 90%;
+        top: 20%;
+        left: 5%;
+    }
+
+    /* Adjust other elements as needed for mobile layout */
+    /* #nav-wrap {
+        height: auto;
+        font-size: 2vh;
+    } */
+
+    .btn-lg {
+        font-size: 2vh;
+        width: auto;
+        padding: 1vh 2vh;
+    }
+}
+
+/* Adjust labels positioning for rotation */
+@media only screen and (max-width: 767px) {
+    .label.top {
+        position: absolute;
+        transform: rotate(90deg);
+        transform-origin: left;
+    }
+
+    .label.left {
+        position: absolute;
+        transform: rotate(0deg);
+        transform-origin: center;
+    }
+
+    .label.bottom {
+        position: absolute;
+        transform: rotate(90deg);
+        transform-origin: left;
+    }
+
+    .label.right {
+        position: absolute;
+        transform: rotate(0deg);
+        transform-origin: center;
+    }
+
+    #nav-wrap {
+        text-align: right;
+        height: 6vh;
+        font-size: 1.5vh;
+        opacity: 1;
+        background:#eeeeee;
+        border: 1px dashed black;
+    }
+}

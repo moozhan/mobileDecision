@@ -1,0 +1,78 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Decision Style App</title>
+	<!-- <link href = '/css/stylesheet.css' rel='stylesheet'> -->
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>	
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href = '/css/index.css' rel='stylesheet'>
+
+</head>
+<body>
+    <div class="container-fluid	text-center">
+        <div class="perspective-text">
+            <div class="perspective-line">
+                <p>&nbsp;</p>
+                <p>Decision</p>
+              </div>
+            <div class="perspective-line">
+              <p>Decision</p>
+              <p>Planning</p>
+            </div>
+            <div class="perspective-line">
+              <p>Planning</p>
+              <p>Style</p>
+            </div>
+            <div class="perspective-line">
+              <p>Style</p>
+              <p>Depth</p>
+            </div>
+            <div class="perspective-line">
+                <p>Depth</p>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-md text-center">
+        <h2>You are going to play rounds of 4-in-a-row game! Achieve a line of four counters in a row horizontally, vertically or diagonally. </h2>
+        <div style="height: 100px;"></div>
+        <p class="text-help">“This is part of an academic research. By continuing to the registration page you are giving us consent to use your data for our research purposes. Click here to learn more about the research and how we handle your data</p>
+        <div style="height: 80px;"></div>
+        <p class="text-help" style="text-align: left;">By signing up you will have access to all the tests and games. If you do not wish to register with your email, continue with username.</p>
+        <a type="button" class="btn btn-primary" style="margin-top: 1.2em;" href="/login">Register/Sign In</a>
+        <h3 style="text-align: center;">OR</h3>
+        <p class="text-help" >Skip the registration and start with choosing a username. We won't be able to save your attempts when you proceed wihtout registration.</p>
+        <div style="height: 30px;"></div>
+        <input type="text" id="username" class="form-control" placeholder="Enter Username" required>
+        <button type="button" class="btn btn-primary" style="margin-top: 1.2em;" onclick="startGameWithUsername()">Continue with Username</button>
+
+    </div>   
+
+    <script>
+        function startGameWithUsername() {
+            const username = document.getElementById('username').value;
+            if (username) {
+                // Redirect to the game page with the username
+                window.location.href = `/playvscomp?username=${username}`;
+            } else {
+                alert('Please enter a username');
+            }
+        }
+        </script>
+
+<!-- 
+    <div class="container">
+            <h3>Hi <a href="play_against_comp.html">start</a></h3>
+    </div>
+    <div class="col-md-8">
+        <h3 class="main-title">Do You Know Your Decision Making Style?</h3>
+        <p class="main-subtitle">“This is part of an academic research. By continuing to the registration page you are giving us consent to use your data for our research purposes. <a class="main-subtitle" style="color:black; text-decoration: underline; font-weight: bold;" href="/about">Click here</a> to learn more about the research and how we handle your data</p>
+        <a class="main-subtitle" style="color:black;" href="/login"><button class="col-md-8 main-button">register or login</button></a>
+    </div> -->
+</body>
+</html>
+
