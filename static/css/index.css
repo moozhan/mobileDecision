@@ -9,7 +9,7 @@ body {
 
   .perspective-text {
     position: relative;
-    margin-top: 50%;
+    margin-top: 30%;
     margin-left: 42%;
     transform: translate(-50%, -50%);
     font-family: Arial;
@@ -83,7 +83,7 @@ body {
   }
   
 .text-help{
-    font-size: 1.3em;
+    font-size: 1.4em;
     line-height: 1.3;
     width: 100%;
     text-align: justify;
@@ -97,10 +97,21 @@ body {
   }
 .btn-primary{
     border: 2px dashed #040404;
-    width: 90%;
+    width: 100%;
     background-color: #eeeeee;
     padding-top: 1.2em;
     padding-bottom: 1.2em;
     color: #040404;
     font-size: 1.4em;
+    font-weight: bold;
+}
+.usernameInput{
+    border: 2px dashed #040404;
+    width: 100%;
+    background-color: #ffffff;
+    padding-top: 0.9em;
+    padding-bottom: 1.2em;
+    color: #040404;
+    font-size: 1.4em;
+    font-weight: bold;
 }

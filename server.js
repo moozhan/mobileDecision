@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.set('trust proxy', 1); // Trust first proxy
 app.use(cors({
     origin: ['https://lazy-puce-tortoise-yoke.cyclic.app', 'https://moozhan.github.io', 'https://dev-backend.d4id81j7108zr.amplifyapp.com',
-        'https://fourinarow.decisionmakingstyle.com', 'https://turk-dev.d4id81j7108zr.amplifyapp.com'], // Update with the location of your HTML file
+        'https://fourinarow.decisionmakingstyle.com', 'https://turk-dev.d4id81j7108zr.amplifyapp.com', 'http://localhost:3000'], // Update with the location of your HTML file
     credentials: true
 }));
 app.use(cookieParser());
@@ -105,39 +105,71 @@ app.get('/games/indecision', (req, res) => {
 
 app.get('/playvscomp', (req, res) => {
     const username = req.query.username;
-    if (username) {
-        res.sendFile(path.join(__dirname, 'static', 'play_against_comp.html'));
-    } else if (req.isAuthenticated()) {
+    if (username || req.isAuthenticated()) {
         res.sendFile(path.join(__dirname, 'static', 'play_against_comp.html'));
     } else {
-        res.status(401).json({ error: 'User is not authenticated' });
+        res.status(401).json({ error: 'User is not authenticated or username is missing' });
     }
 });
-app.get('/games', (req, res) => {
+
+app.get('/collection', (req, res) => {
     if (req.isAuthenticated()) {
-        res.render('collection.html');
+        res.sendFile(path.join(__dirname, 'static', 'collection.html'));
     } else {
         res.status(401).json({ error: 'User is not authenticated' });
     }
 });
 
-app.get('/profile', requiresAuth(), (req, res) => {
-    res.send(JSON.stringify(req.oidc.user));
+app.get('/questionnaire', async (req, res, next) => {
+    if (req.isAuthenticated()) {
+        await checkAuthUserDetails(req, res, next);
+    } else {
+        checkGuestUserDetails(req, res, next);
+    }
+}, (req, res) => {
+    res.sendFile(path.join(__dirname, 'static', 'questionnaire.html'));
 });
 
-// User data endpoint
-// app.get('/user', (req, res) => {
-//     if (req.isAuthenticated()) {
-//         res.json({
-//             id: req.user.id,
-//             name: req.user.displayName,
-//             emails: req.user.emails
-//         });
-//     } else {
-//         res.status(401).json({ error: 'User is not authenticated' });
-//     }
-// });
 
+app.get('/check-username', async (req, res) => {
+    const { username } = req.query;
+    if (!username) {
+        return res.status(400).json({ error: 'Username is required' });
+    }
+    try {
+        let user = await GameData.findOne({ username });
+        if (user) {
+            return res.status(200).json({ exists: true });
+        } else {
+            // Create a new record if the username does not exist
+            user = new GameData({ username });
+            await user.save();
+            return res.status(200).json({ exists: false });
+        }
+    } catch (error) {
+        console.error('Error checking username:', error);
+        return res.status(500).json({ error: 'Error checking username' });
+    }
+});
+
+async function checkAuthUserDetails(req, res, next) {
+    if (req.isAuthenticated()) {
+        const user = await User.findOne({ auth0Id: req.user.id });
+        if (user && user.userdetails && Object.keys(user.userdetails).length > 0) {
+            return res.redirect('/playvscomp');
+        }
+    }
+    next();
+}
+
+function checkGuestUserDetails(req, res, next) {
+    const username = req.query.username;
+    if (username) {
+        next();
+    } else {
+        res.status(400).send('Username is required for guest users');
+    }
+}
 
 //======================== All the forms ===============//
 app.post('/games/indecision', (req, res) => {
@@ -176,30 +208,55 @@ app.post('/games/indecision', (req, res) => {
 });
 
 app.post('/userprofile', async (req, res) => {
+    const { location, age, gender, field } = req.body;
+    const userDetails = { location, age, gender, field };
+
     if (req.isAuthenticated()) {
         try {
-            const userDetails = {
-                "strategic": req.body.strategic,
-                "yearsofexperience": req.body.yearsofexperience,
-                "training": req.body.training,
-                "yearsoftraining": req.body.yearsoftraining,
-                "location": req.body.location,
-                "age": req.body.age,
-                "gender": req.body.gender
-            }
             const id = req.user.id;
-            await User.updateOne({ auth0Id: id }, { $push: { "userdetails": userDetails } });
-            console.log('Update successful');
-
-            res.send('Profile updated successfully!'); // Respond to client on success
+            await User.findOneAndUpdate(
+                { auth0Id: id },
+                { $set: { userdetails: userDetails } },
+                { new: true, upsert: false }  // upsert: false ensures no new document is created
+            );
+            console.log('Profile updated successfully for authenticated user');
+            res.send('Profile updated successfully!');
         } catch (error) {
-            console.error('Error updating user', error);
-            res.status(500).send('Error updating user details'); // Send error response
+            console.error('Error updating user:', error);
+            res.status(500).send('Error updating user details');
         }
     } else {
-        res.status(401).send('User is not authenticated');
+        const username = req.query.username;
+        if (username) {
+            try {
+                const userRecord = await GameData.findOneAndUpdate(
+                    { username },
+                    { $set: { userdetails: userDetails } },
+                    { new: true, upsert: false }  // upsert: false ensures no new document is created
+                );
+
+                if (userRecord) {
+                    console.log('Profile updated successfully for guest user');
+                    res.send('Profile updated successfully for guest user!');
+                } else {
+                    // Create new record if it does not exist
+                    const newUserRecord = new GameData({ username, userdetails: userDetails, experiments: [] });
+                    await newUserRecord.save();
+                    console.log('Profile saved successfully for guest user');
+                    res.send('Profile saved successfully for guest user!');
+                }
+            } catch (error) {
+                console.error('Error saving guest user details:', error);
+                res.status(500).send('Error saving guest user details');
+            }
+        } else {
+            res.status(401).send('User is not authenticated');
+        }
     }
 });
+
+
+
 
 app.post('/updateData', (req, res) => {
     if (req.isAuthenticated()) {
@@ -240,24 +297,37 @@ app.post('/save-game-data', (req, res) => {
 });
 
 // Route to save game data for users playing without authentication
-app.post('/save-game-data-no-auth', (req, res) => {
+app.post('/save-game-data-no-auth', async (req, res) => {
     const { username, gameData } = req.body;
 
     if (username && gameData) {
-        const newGameData = new GameData({ username: username, data: gameData.games });
-        newGameData.save()
-            .then(result => {
-                console.log('Game data saved successfully:', result);
+        try {
+            const userRecord = await GameData.findOneAndUpdate(
+                { username },
+                { $push: { experiments: gameData } },
+                { new: true, upsert: false }  // upsert: false ensures no new document is created
+            );
+
+            if (userRecord) {
+                console.log('Game data updated successfully for guest user');
+                res.status(200).json({ message: 'Data updated successfully' });
+            } else {
+                // Create new record if it does not exist
+                const newUserRecord = new GameData({ username, experiments: [gameData] });
+                await newUserRecord.save();
+                console.log('Game data saved successfully for guest user');
                 res.status(200).json({ message: 'Data saved successfully' });
-            })
-            .catch(error => {
-                console.error('Error saving game data:', error);
-                res.status(500).json({ error: 'Error saving game data' });
-            });
+            }
+        } catch (error) {
+            console.error('Error saving guest user game data:', error);
+            res.status(500).json({ error: 'Error saving game data' });
+        }
     } else {
         res.status(400).json({ error: 'Username and game data are required' });
     }
 });
+
+
 
 
 //============================================== All Auth0 Routes
@@ -277,7 +347,7 @@ app.get('/callback', passport.authenticate('auth0', { failureRedirect: '/login' 
         if (existingUser) {
             console.log('User exists, redirecting to /playvscomp');
             // User already exists, so redirect to the games page
-            res.redirect('/playvscomp'); // Ensure this is the correct route
+            res.redirect('/questionnaire'); // Ensure this is the correct route
         } else {
             console.log('User does not exist, creating a new user...');
             // User does not exist, create a new user
@@ -288,7 +358,7 @@ app.get('/callback', passport.authenticate('auth0', { failureRedirect: '/login' 
             // Save the new user and then redirect
             await newUser.save();
             console.log('New user added:', newUser);
-            res.redirect('/playvscomp'); // Ensure this is the correct route
+            res.redirect('/questionnaire'); // Ensure this is the correct route
         }
     } catch (err) {
         console.log('Error during user lookup or creation:', err);
@@ -297,6 +367,8 @@ app.get('/callback', passport.authenticate('auth0', { failureRedirect: '/login' 
 });
 
 app.get('/logout', (req, res, next) => {
+    const username = req.query.username;
+
     if (req.isAuthenticated()) {
         req.logout(function (err) {
             if (err) { return next(err); }
@@ -318,10 +390,20 @@ app.get('/logout', (req, res, next) => {
             console.log('Redirecting to Auth0 logout URL:', logoutURL.toString());
             res.redirect(logoutURL.toString());
         });
+    } else if (username) {
+        // Handle logout for guest users
+        req.session.destroy(err => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect('/');
+        });
     } else {
         res.status(401).json({ error: 'User is not authenticated' });
     }
 });
+
+
 
 
 

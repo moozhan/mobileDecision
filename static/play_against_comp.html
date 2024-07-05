@@ -39,8 +39,6 @@
 	</script>
 	<link href = "/css/lib/bootstrap-12/bootstrap.min.css" rel = "stylesheet">
 	<link href = '/css/stylesheet.css' rel='stylesheet'>
-
-
 	</head>
 	<body>
 		<div id="nav-wrap">
@@ -53,6 +51,7 @@
 				<div class="modal-content">
 					<div class="modal-body">
 						<h2 class="modal-title">Good game!</h2>
+						<div style="height: 2vh;"></div>
 						<div class='row'>
 							<div class='col-xs-10 col-xs-offset-1 text-center' id='scorebox'>
 								<div id='p0-score' class='col-xs-6 text-center'>
@@ -65,8 +64,11 @@
 								</div>
 							</div>
 						</div>
-					<button class="btn btn-large btn-warning" id="next-trial">Play Again</button>
-					</div>
+						<div style="height: 3vh;"></div>
+						<button class="btn btn-large btn-secondary" id="end-game-button">End the Game</button>
+						<button class="btn btn-large btn-success" id="next-trial">Play Again</button>
+				
+				</div>
 				</div>
 			</div>
 		</div>
@@ -84,5 +86,71 @@
 			</div>
 		</div>
 		<script src="/js/script.js"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const urlParams = new URLSearchParams(window.location.search);
+				const username = urlParams.get('username');
+	
+				if (!username) {
+					// User is authenticated
+					document.getElementById('logout-button').style.display = 'block';
+					document.getElementById('end-game-button').addEventListener('click', () => {
+						window.location.href = '/another-page';
+					});
+				} else {
+					// User is a guest
+					document.getElementById('logout-button').style.display = 'none';
+					const endGameButton = document.getElementById('end-game-button');
+					if (endGameButton) {
+						endGameButton.addEventListener('click', () => {
+							endGameButton.id = 'logout-button';
+							window.location.href = `/logout?username=${username}`;
+						});
+					} else {
+						console.error('End game button not found');
+					}
+				}
+	
+				// Submit game data
+				const submitGameData = (gameData) => {
+					const urlParams = new URLSearchParams(window.location.search);
+					const username = urlParams.get('username');
+					let fetchUrl = '/save-game-data';
+	
+					if (username) {
+						fetchUrl = `/save-game-data-no-auth?username=${username}`;
+					}
+	
+					fetch(fetchUrl, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({ gameData, username })
+					})
+					.then(response => {
+						if (response.ok) {
+							return response.json();
+						} else {
+							throw new Error('Network response was not ok.');
+						}
+					})
+					.then(data => {
+						console.log('Game data saved successfully:', data);
+					})
+					.catch(error => {
+						console.error('There was a problem with your fetch operation:', error);
+					});
+				};
+	
+				// Example game data submission
+				document.getElementById('next-trial').addEventListener('click', () => {
+					const gameData = {
+						// your game data here
+					};
+					submitGameData(gameData);
+				});
+			});
+		</script>
 	</body>
 </html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Decision Style App</title>
+    <!-- <link href = '/css/stylesheet.css' rel='stylesheet'> -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href = '/css/index.css' rel='stylesheet'>
+
+</head>
+<body>
+    <div class="container-md text-center">
+        <h2>This part is for the research purpose during the project to help us better interpret the results. It will be removed in the final version of the platform. You will only fill this once. </h2>
+        <form style="margin-top: 2em;" id="userdetailsform">
+            <div class="form-group">
+                <label for="location">In which country do you work?</label>
+                <input type="text" id="location" name="location" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="age">Your age</label>
+                <select class="form-control form-control-sm" id="age" name="age"> 
+                    <option>below 20</option>
+                    <option>20-30</option>
+                    <option>30-40</option>
+                    <option>40-50</option>
+                    <option>50-60</option>
+                    <option>60-70</option>
+                    <option>Above 70</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="gender">Your gender</label>
+                <select class="form-control form-control-sm" id="gender" name="gender"> 
+                    <option>Prefer Not to Say</option>
+                    <option>Female</option>
+                    <option>Male</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="field">Which category your work best fit in?</label>
+                <select class="form-control form-control-sm" id="field" name="field"> 
+                    <option>Planning</option>
+                    <option>Design</option>
+                    <option>Both</option>
+                    <option>None</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>        
+
+    </div>  
+
+    <script>
+        document.getElementById('userdetailsform').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const username = urlParams.get('username');
+
+            let fetchUrl = '/userprofile';
+            if (username) {
+                fetchUrl += `?username=${username}`;
+            }
+
+            fetch(fetchUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            })
+            .then(data => {
+                console.log(data);
+                alert('Profile updated successfully!');
+                if (username) {
+                    window.location.href = `/playvscomp?username=${username}`;
+                } else {
+                    window.location.href = '/playvscomp';
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
+        });
+    </script>
+</body>
+</html>
