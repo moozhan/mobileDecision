@@ -132,7 +132,7 @@ function Condition_AI() {
 		if (that.allGamesData.games.length === 0) {
 			return Promise.resolve(); // No game data to save
 		}
-	
+
 		// Check if username is in the session (non-authenticated user)
 		const username = new URLSearchParams(window.location.search).get('username');
 		if (username) {
@@ -146,13 +146,13 @@ function Condition_AI() {
 					gameData: that.allGamesData
 				})
 			})
-			.then(response => response.json())
-			.then(data => {
-				console.log('Success for non-authenticated user:', data);
-			})
-			.catch((error) => {
-				console.error('Error for non-authenticated user:', error);
-			});
+				.then(response => response.json())
+				.then(data => {
+					console.log('Success for non-authenticated user:', data);
+				})
+				.catch((error) => {
+					console.error('Error for non-authenticated user:', error);
+				});
 		} else {
 			return fetch('/save-game-data', {
 				method: 'POST',
@@ -161,13 +161,13 @@ function Condition_AI() {
 				},
 				body: JSON.stringify(that.allGamesData)
 			})
-			.then(response => response.json())
-			.then(data => {
-				console.log('Success for authenticated user:', data);
-			})
-			.catch((error) => {
-				console.error('Error for authenticated user:', error);
-			});
+				.then(response => response.json())
+				.then(data => {
+					console.log('Success for authenticated user:', data);
+				})
+				.catch((error) => {
+					console.error('Error for authenticated user:', error);
+				});
 		}
 	};
 
@@ -190,4 +190,3 @@ function Condition_AI() {
 		}
 	});
 }
-

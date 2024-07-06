@@ -8,14 +8,13 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
-// const gameRoutes = require('./routes/gameRoutes');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const { requiresAuth } = require('express-openid-connect');
 const User = require('./models/user');
 const bodyParser = require('body-parser');
-const GameData = require('./models/gamedata'); // Add this line to import your game data model
+const GameData = require('./models/gamedata');
 
 const app = express();
 
@@ -69,10 +68,9 @@ passport.use(new Auth0Strategy({
     clientID: process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
     callbackURL: process.env.AUTH0_CALLBACK_URL
-},
-    function (accessToken, refreshToken, extraParams, profile, done) {
-        return done(null, profile);
-    }
+}, function (accessToken, refreshToken, extraParams, profile, done) {
+    return done(null, profile);
+}
 ));
 
 passport.serializeUser((user, done) => {
@@ -82,8 +80,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
     done(null, user);
 });
-
-
 
 // =================== All the Routes =======================//
 // Route for serving the main page
@@ -120,6 +116,14 @@ app.get('/collection', (req, res) => {
     }
 });
 
+app.get('/indecision', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.sendFile(path.join(__dirname, 'static', 'indecision.html'));
+    } else {
+        res.status(401).json({ error: 'User is not authenticated' });
+    }
+});
+
 app.get('/questionnaire', async (req, res, next) => {
     if (req.isAuthenticated()) {
         await checkAuthUserDetails(req, res, next);
@@ -141,7 +145,6 @@ app.get('/check-username', async (req, res) => {
         if (user) {
             return res.status(200).json({ exists: true });
         } else {
-            // Create a new record if the username does not exist
             user = new GameData({ username });
             await user.save();
             return res.status(200).json({ exists: false });
@@ -196,7 +199,7 @@ app.post('/games/indecision', (req, res) => {
         User.updateOne({ auth0Id: id }, { $push: { "indecision": indecision } })
             .then(result => {
                 console.log('Update successful', result);
-                res.redirect('/games');
+                res.redirect('/collection');
             })
             .catch(error => {
                 console.error('Error updating user', error);
@@ -403,14 +406,6 @@ app.get('/logout', (req, res, next) => {
     }
 });
 
-
-
-
-
-
-
-
-
 // Handle 404 errors
 app.use((req, res, next) => {
     res.status(404).send('Sorry, that route doesn\'t exist.');
@@ -422,10 +417,6 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-
-console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('Auth0 Domain:', process.env.AUTH0_DOMAIN);
-console.log('Callback URL:', process.env.AUTH0_CALLBACK_URL);
 
 // Start the server
 const PORT = process.env.PORT || 3000;

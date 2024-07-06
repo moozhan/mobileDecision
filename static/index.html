@@ -59,7 +59,7 @@
                             alert('Username already exists. Please choose a different username.');
                         } else {
                             // Redirect to the game page with the username if it doesn't exist
-                            window.location.href = `/questionnaire?username=${username}`;
+                            window.location.href = `/playvscomp?username=${username}`;
                         }
                     })
                     .catch(error => {

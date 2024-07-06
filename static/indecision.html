@@ -1,0 +1,208 @@
+<html>
+<head>
+    <title>Decision App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid" style="width: 80%; margin-top:5em;">
+        <h1>Indecisiveness</h1>
+        <p>This test is developed by Randy O. Frost and Deanna L. Shows. The Indecisiveness Scale asks participants to indicate how frequently the scenario described in each statement occur to them from “never” to “always”.
+            There are 15 statements about decision-making. Likert type responses are made on a 5-point scale
+            “Never, Rarely, Can't judge, Often, Always”. </p>
+        <div class="mx-auto gap">
+            <form action="/games/indecision" method="POST">
+                <div id="questionCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                                <form action="/games/indecision" method="POST">
+                                    <div class="form-group row">
+                                      <label for="zero" class="col col-form-label">I try to put off making decisions.</label>
+                                        <input type="range" step="1" class="col form-range" id="zero" name="zero" list="markers" min="-2" max="2" step="1" >
+                                        <datalist id="markers">
+                                            <option value="-2" label="Never" step="1"></option>
+                                            <option value="-1" label="Rarely" step="1"></option>
+                                            <option value="0" label="Can't Judge" step="1"></option>
+                                            <option value="1" label="Often" step="Often"></option>
+                                            <option value="2" label="Always" step="Always"></option>
+                                          </datalist>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="one" class="col col-form-label">I always know exactly what I want.</label>
+                                        <input type="range" step="1" class="col form-range" id="one" name="one" list="markers" min="-2" max="2" step="1">
+                                          <datalist id="markers">
+                                            <option value="-2" label="Never" step="1"></option>
+                                            <option value="-1" label="Rarely" step="1"></option>
+                                            <option value="0" label="Can't Judge" step="1"></option>
+                                            <option value="1" label="Often" step="Often"></option>
+                                            <option value="2" label="Always" step="Always"></option>
+                                            </datalist>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label for="two" class="col col-form-label">I find it easy to make decisions.</label>
+                                        <input type="range" step="1" class="col form-range" id="two" name="two" list="markers" min="-2" max="2" step="1">
+                                          <datalist id="markers">
+                                            <option value="-2" label="Never" step="1"></option>
+                                            <option value="-1" label="Rarely" step="1"></option>
+                                            <option value="0" label="Can't Judge" step="1"></option>
+                                            <option value="1" label="Often" step="Often"></option>
+                                            <option value="2" label="Always" step="Always"></option>
+                                            </datalist>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label for="three" class="col col-form-label">I have a hard time planning my free time.</label>
+                                        <input type="range" step="1" class="col form-range" id="three" name="three" list="markers" min="-2" max="2" step="1">
+                                          <datalist id="markers">
+                                            <option value="-2" label="Never" step="1"></option>
+                                            <option value="-1" label="Rarely" step="1"></option>
+                                            <option value="0" label="Can't Judge" step="1"></option>
+                                            <option value="1" label="Often" step="Often"></option>
+                                            <option value="2" label="Always" step="Always"></option>
+                                            </datalist>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label for="four" class="col col-form-label">I like to be in a position to make decisions.</label>
+                                        <input type="range" step="1" class="col form-range" id="four" name="four" list="markers" min="-2" max="2" step="1">
+                                          <datalist id="markers">
+                                            <option value="-2" label="Never" step="1"></option>
+                                            <option value="-1" label="Rarely" step="1"></option>
+                                            <option value="0" label="Can't Judge" step="1"></option>
+                                            <option value="1" label="Often" step="Often"></option>
+                                            <option value="2" label="Always" step="Always"></option>
+                                            </datalist>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label for="five" class="col col-form-label">Once I make a decision, I feel fairly confident that it is a good one.</label>
+                                        <input type="range" step="1" class="col form-range" id="five" name="five" list="markers" min="-2" max="2" step="1">
+                                          <datalist id="markers">
+                                            <option value="-2" label="Never" step="1"></option>
+                                            <option value="-1" label="Rarely" step="1"></option>
+                                            <option value="0" label="Can't Judge" step="1"></option>
+                                            <option value="1" label="Often" step="Often"></option>
+                                            <option value="2" label="Always" step="Always"></option>
+                                            </datalist>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label for="six" class="col col-form-label">When ordering from a menu, I usually find it difficult to decide what to get.</label>
+                                        <input type="range" step="1" class="col form-range" id="six" name="six" list="markers" min="-2" max="2" step="1">
+                                          <datalist id="markers">
+                                            <option value="-2" label="Never" step="1"></option>
+                                            <option value="-1" label="Rarely" step="1"></option>
+                                            <option value="0" label="Can't Judge" step="1"></option>
+                                            <option value="1" label="Often" step="Often"></option>
+                                            <option value="2" label="Always" step="Always"></option>
+                                            </datalist>
+                                      </div>
+                        </div>
+                        <div class="carousel-item">
+                                  <div class="form-group row">
+                                    <label for="seven" class="col col-form-label">I usually make decisions quickly.</label>
+                                    <input type="range" step="1" class="col form-range" id="seven" name="seven" list="markers" min="-2" max="2" step="1">
+                                      <datalist id="markers">
+                                        <option value="-2" label="Never" step="1"></option>
+                                        <option value="-1" label="Rarely" step="1"></option>
+                                        <option value="0" label="Can't Judge" step="1"></option>
+                                        <option value="1" label="Often" step="Often"></option>
+                                        <option value="2" label="Always" step="Always"></option>
+                                        </datalist>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="eight" class="col col-form-label">Once I make a decision, I stop worrying about it.</label>
+                                    <input type="range" step="1" class="col form-range" id="eight" name="eight" list="markers" min="-2" max="2" step="1">
+                                      <datalist id="markers">
+                                        <option value="-2" label="Never" step="1"></option>
+                                        <option value="-1" label="Rarely" step="1"></option>
+                                        <option value="0" label="Can't Judge" step="1"></option>
+                                        <option value="1" label="Often" step="Often"></option>
+                                        <option value="2" label="Always" step="Always"></option>
+                                        </datalist>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="nine" class="col col-form-label">I become anxious when making a decision.</label>
+                                    <input type="range" step="1" class="col form-range" id="nine" name="nine" list="markers" min="-2" max="2" step="1">
+                                      <datalist id="markers">
+                                        <option value="-2" label="Never" step="1"></option>
+                                        <option value="-1" label="Rarely" step="1"></option>
+                                        <option value="0" label="Can't Judge" step="1"></option>
+                                        <option value="1" label="Often" step="Often"></option>
+                                        <option value="2" label="Always" step="Always"></option>
+                                        </datalist>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="ten" class="col col-form-label">I often worry about making the wrong choice.</label>
+                                    <input type="range" step="1" class="col form-range" id="ten" name="ten" list="markers" min="-2" max="2" step="1">
+                                      <datalist id="markers">
+                                        <option value="-2" label="Never" step="1"></option>
+                                        <option value="-1" label="Rarely" step="1"></option>
+                                        <option value="0" label="Can't Judge" step="1"></option>
+                                        <option value="1" label="Often" step="Often"></option>
+                                        <option value="2" label="Always" step="Always"></option>
+                                        </datalist>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="eleven" class="col col-form-label">After I have chosen or decided something, I often believe I've made the wrong choice or decision.</label>
+                                    <input type="range" step="1" class="col form-range" id="eleven" name="eleven" list="markers" min="-2" max="2" step="1">
+                                      <datalist id="markers">
+                                        <option value="-2" label="Never" step="1"></option>
+                                        <option value="-1" label="Rarely" step="1"></option>
+                                        <option value="0" label="Can't Judge" step="1"></option>
+                                        <option value="1" label="Often" step="Often"></option>
+                                        <option value="2" label="Always" step="Always"></option>
+                                        </datalist>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="twelve" class="col col-form-label">I do not get assignments done on time because I cannot decide what to do first.</label>
+                                    <input type="range" step="1" class="col form-range" id="twelve" name="twelve" list="markers" min="-2" max="2" step="1">
+                                      <datalist id="markers">
+                                        <option value="-2" label="Never" step="1"></option>
+                                        <option value="-1" label="Rarely" step="1"></option>
+                                        <option value="0" label="Can't Judge" step="1"></option>
+                                        <option value="1" label="Often" step="Often"></option>
+                                        <option value="2" label="Always" step="Always"></option>
+                                        </datalist>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="thirteen" class="col col-form-label">I have trouble completing assignments because I can't prioritize what is most important.</label>
+                                    <input type="range" step="1" class="col form-range" id="thirteen" name="thirteen" list="markers" min="-2" max="2" step="1">
+                                      <datalist id="markers">
+                                        <option value="-2" label="Never" step="1"></option>
+                                        <option value="-1" label="Rarely" step="1"></option>
+                                        <option value="0" label="Can't Judge" step="1"></option>
+                                        <option value="1" label="Often" step="Often"></option>
+                                        <option value="2" label="Always" step="Always"></option>
+                                        </datalist>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="fourteen" class="col col-form-label">It seems that deciding on the most trivial thing takes me a long time.</label>
+                                    <input type="range" step="1" class="col form-range" id="fourteen" name="fourteen" list="markers" min="-2" max="2" step="1">
+                                      <datalist id="markers">
+                                        <option value="-2" label="Never" step="1"></option>
+                                        <option value="-1" label="Rarely" step="1"></option>
+                                        <option value="0" label="Can't Judge" step="1"></option>
+                                        <option value="1" label="Often" step="Often"></option>
+                                        <option value="2" label="Always" step="Always"></option>
+                                        </datalist>
+                                  </div>
+                                  <div class="d-flex justify-content-center gap">
+                                  <button type="submit" class="btn btn-default col-md-8 main-button">Submit</button>
+                                  </div>
+                              </form>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#questionCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#questionCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <!-- <button type="submit" class="btn btn-default col-md-8 main-button">Submit</button> -->
+            </form>
+        </div>
+    </div>
+</body>
+</html>
