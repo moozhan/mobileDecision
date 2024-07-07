@@ -14,8 +14,9 @@ function Condition_AI() {
 		var bp = that.b.black_position.join("");
 		var wp = that.b.white_position.join("");
 		setTimeout(function () {
-			that.b.last_move = that.makemove(Date.now(), bp, wp, that.p.opponent_color);
-			console.log(that.b.last_move);
+			console.log('Making move with opponent:', that.current_opponent);
+			that.b.last_move = that.makemove(Date.now(), bp, wp, that.current_opponent);
+			console.log('Opponent move:', that.b.last_move);
 			that.b.add_piece(that.b.last_move, that.p.opponent_color);
 			that.b.show_last_move(that.b.last_move, that.p.opponent_color);
 			that.b.evaluate_win(that.p.opponent_color);
@@ -35,11 +36,13 @@ function Condition_AI() {
 				$('#p1-score h2').text(that.p.opponent_score);
 				$('#feedback-modal').modal('show');
 				that.p.currentGame.result = 'loss';
-				that.saveGameData();
+				console.log('Opponent won, setting result to loss');
+				that.saveGameData('loss');
 			} else if (that.b.game_status == 'draw') {
 				$('#feedback-modal').modal('show');
 				that.p.currentGame.result = 'draw';
-				that.saveGameData();
+				console.log('Game is a draw, setting result to draw');
+				that.saveGameData('draw');
 			} else {
 				that.init_turn();
 			}
@@ -69,11 +72,13 @@ function Condition_AI() {
 			$('#p0-score h2').text(that.p.score);
 			$('#feedback-modal').modal('show');
 			that.p.currentGame.result = 'win';
-			that.saveGameData();
+			console.log('Player won, setting result to win');
+			that.saveGameData('win');
 		} else if (that.b.game_status == 'draw') {
 			$('#feedback-modal').modal('show');
 			that.p.currentGame.result = 'draw';
-			that.saveGameData();
+			console.log('Game is a draw, setting result to draw');
+			that.saveGameData('draw');
 		} else {
 			that.opponent_move();
 		}
@@ -91,7 +96,10 @@ function Condition_AI() {
 	this.start_game = function () {
 		that.b = new Board();
 		that.b.create_tiles();
-		that.current_opponent = 5;
+		if (typeof that.current_opponent === 'undefined') {
+			that.current_opponent = 5;  // Initial opponent
+		}
+		console.log('Starting game with opponent:', that.current_opponent);  // Log starting opponent
 		if (that.p.color == 0) {
 			that.init_turn();
 		} else {
@@ -111,13 +119,20 @@ function Condition_AI() {
 		that.start_game();
 	};
 
-	this.saveGameData = function () {
+	this.saveGameData = function (result) {
+		// Ensure result is set before saving
+		that.p.currentGame.result = result;
+		console.log('Saving game data with result:', result);
+		if (result == null) {
+			console.error('Result is null before saving game data');
+		}
 		// Add the current game to the list of games
 		that.allGamesData.games.push({
 			player_initials: that.p.initials,
 			opponent_initials: that.p.opponent_initials,
+			opponent: that.current_opponent,  // Track current opponent
 			moves: that.p.currentGame.moves,
-			result: that.p.currentGame.result,
+			result: result,
 			timestamp: Date.now()
 		});
 
@@ -126,6 +141,8 @@ function Condition_AI() {
 			moves: [],
 			result: null
 		};
+		console.log('Game data saved:', that.allGamesData.games);
+		that.updateOpponent(result); // Call updateOpponent with the result directly
 	};
 
 	this.saveAllGamesData = function () {
@@ -169,6 +186,17 @@ function Condition_AI() {
 					console.error('Error for authenticated user:', error);
 				});
 		}
+	};
+
+	this.updateOpponent = function (result) {
+		// Example logic to change opponent based on performance
+		console.log('Updating opponent based on result:', result);
+		if (result === 'win') {
+			that.current_opponent = Math.min(that.current_opponent + 1, 30);  // Increase difficulty
+		} else if (result === 'loss') {
+			that.current_opponent = Math.max(that.current_opponent - 1, 1);  // Decrease difficulty
+		}
+		console.log('Updated opponent:', that.current_opponent);  // Log updated opponent
 	};
 
 	// Save data when the window is about to be closed
