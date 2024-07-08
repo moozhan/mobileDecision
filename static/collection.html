@@ -15,10 +15,6 @@
 	<script src="/js/lib/bootstrap-12/bootstrap.min.js"></script>
 	<script src="/js/lib/underscore-min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-	<script src="/js/util.js"></script>
-	<script src="/js/game.js"></script>
-	<script src="/js/AI.js"></script>
 	<script src="../scripts/Code/makemove.js"></script>
 	<link href = "/css/lib/bootstrap-12/bootstrap.min.css" rel = "stylesheet">
 	<link href = '/css/stylesheet.css' rel='stylesheet'>
@@ -28,12 +24,16 @@
 	<body>
 		<div id="nav-wrap">
 			<a href="">How to Play</a>	
-			<button id="logout-button">Logout</button>
+			<button onclick="window.location.href = '/logout';" id="logout-button">Logout</button>
 		</div>
+		<!--make the page two container, for now, but in the long run a grid with all the games loading in it. -->
 		<div class='container-fluid text-center'>
 			<div class='row'>
 				<div class="headertext col-ml-8 col-ml-offset-2">
-					<a href="/indecision">indecision Game</a>
+					<a href="/playvscomp">Planning Depth</a>
+				</div>
+				<div class="headertext col-ml-8 col-ml-offset-2">
+					<a href="/indecision">indecision Test</a>
 				</div>
 			</div>
 		</div>

@@ -1,18 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap");
-/* html {
+html {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-} */
+}
 body, html{
+    background:#eeeeee;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #eeeeee;  
-    padding:0;
-    margin: 0;
-
+    width: 100%;    
 }
 
 .embossed {
@@ -31,7 +26,7 @@ body, html{
 }
 
 .container{
-    width: 100%;
+    width: 90%;
 }
 
 img {
@@ -422,16 +417,12 @@ input[type=radio] {
 }
 
 #nav-wrap {
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    width: 100%; /* Full width */
-    text-align: right;
-    height: 6vh;
-    font-size: 1.5vh;
+    height: 8vh;
+    font-size: 3vh;
     opacity: 1;
-    background:#eeeeee;
+    background: #ffffff;
+    text-align: center;
     border: 1px dashed black;
-    
 }
 
 #nav-wrap A {
@@ -471,80 +462,18 @@ A:active {
     background-color: gray;
     border: gray;
 }
+/* Existing CSS... */
 
-.usernameInput{
-    border: 2px dashed #040404;
-    width: 100%;
-    background-color: #ffffff;
-    padding-top: 0.9em;
-    padding-bottom: 1.2em;
-    color: #040404;
-    font-size: 1.4em;
-    font-weight: bold;
-}
-.btn-ques{
-    border: 2px dashed #040404;
-    width: 100%;
-    background-color: #eeeeee;
-    padding-top: 1.2em;
-    padding-bottom: 1.2em;
-    color: #040404;
-    font-size: 1.4em;
-    font-weight: bold;
-    margin-top: 2vh;
-}
-
-#nav-wrap {
-    width: 100%;
-    background: #eeeeee;
-    border: 1px dashed black;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-}
-
-.container-md {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex: 1;
-    width: 100%;
-}
-
-form {
-    width: 100%; /* Adjust the width as necessary */
-}
-
-.form-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1em;
-}
-
-.form-group label {
-    flex: 1;
-    text-align: left;
-}
-
-.form-group input, .form-group select {
-    flex: 1;
-    margin-left: 1em;
-}
 /* Media query for mobile devices */
 @media only screen and (max-width: 767px) {
-    /* #nav-wrap {
-        width: 100%;
-        background: #eeeeee;
+    #nav-wrap {
+        height: 8vh;
+        font-size: 3vh;
+        opacity: 1;
+        background: #ffffff;
+        text-align: center;
         border: 1px dashed black;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-    } */
+    }
 
     .canvas-container {
 		margin-top: 5vh;
@@ -580,7 +509,7 @@ form {
 
     .headertext {
         display: block;
-		margin-top: 3vh;
+		margin-top: 6vh;
         /* Show header on mobile to indicate turn */
     }
 
@@ -609,58 +538,6 @@ form {
         font-size: 2vh;
         width: auto;
         padding: 1vh 2vh;
-    }
-    .btn-ques{
-        border: 2px dashed #040404;
-        width: 100%;
-        background-color: #eeeeee;
-        padding-top: 1.2em;
-        padding-bottom: 1.2em;
-        color: #040404;
-        font-size: 1.4em;
-        font-weight: bold;
-        margin-top: 2vh;
-    }
-
-    #nav-wrap {
-        width: 100%;
-        background: #eeeeee;
-        border: 1px dashed black;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-    }
-
-    .container-md {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        flex: 1;
-        width: 100%;
-    }
-
-    form {
-        width: 100%; /* Adjust the width as necessary */
-    }
-
-    .form-group {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1em;
-    }
-
-    .form-group label {
-        flex: 1;
-        text-align: left;
-    }
-
-    .form-group input, .form-group select {
-        flex: 1;
-        margin-left: 1em;
     }
 }
 
@@ -691,18 +568,11 @@ form {
     }
 
     #nav-wrap {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .form-group {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .form-group label, .form-group input, .form-group select {
-        flex: none;
-        width: 100%;
-    }
-    .form-group input, .form-group select {
-        margin-left: 0;
+        text-align: right;
+        height: 6vh;
+        font-size: 1.5vh;
+        opacity: 1;
+        background:#eeeeee;
+        border: 1px dashed black;
     }
 }

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Depth of Planning</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="">
-    <meta name="author" content="CSeal on the Beach">
+	<head>
+	<meta charset = "utf-8">
+	<meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="">
+	<meta name="author" content="CSeal on the Beach">
+	<title>Depth of Planning</title>
 
-    <script src="/js/lib/jquery-2.2.4.min.js"></script>
-    <script src="/js/lib/jquery-ui.min.js"></script>
-    <script src="/js/lib/bootstrap-12/bootstrap.min.js"></script>
-    <script src="/js/lib/underscore-min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="/js/lib/jquery-2.2.4.min.js"></script>
+	<script src="/js/lib/jquery-ui.min.js"></script>
+	<script src="/js/lib/bootstrap-12/bootstrap.min.js"></script>
+	<script src="/js/lib/underscore-min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <script src="/js/util.js"></script>
-    <script src="/js/game.js"></script>
-    <script src="/js/AI.js"></script>
-    <script src="../scripts/Code/makemove.js"></script>
+	<script src="/js/util.js"></script>
+	<script src="/js/game.js"></script>
+	<script src="/js/AI.js"></script>
+	<script src="../scripts/Code/makemove.js"></script>
 
     <script>
         var blocks, player;
@@ -111,16 +111,10 @@
                 });
             };
 
-            document.getElementById('next-trial').addEventListener('click', () => {
-                const gameData = {
-                    // your game data here
-                };
-                submitGameData(gameData);
-            });
         });
     </script>
     <link href="/css/lib/bootstrap-12/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/stylesheet.css" rel="stylesheet">
+    <link href="/css/game.css" rel="stylesheet">
 </head>
 <body>
     <div id="nav-wrap">
@@ -147,12 +141,13 @@
                         </div>
                     </div>
                     <div style="height: 3vh;"></div>
-                    <div id="game-message" style="display: none;">
-                        <p>You've played more than 3 games. Why not fill out our questionnaire to help with our research?</p>
-                        <button class="btn btn-primary" id="questionnaire-button">Fill Questionnaire</button>
-                    </div>
                     <button class="btn btn-large btn-secondary" id="end-game-button">End the Game</button>
                     <button class="btn btn-large btn-success" id="next-trial">Play Again</button>
+                    <div style="height: 3vh;"></div>
+                    <div id="game-message" style="display: none;">
+                        <p>You've played more than 10 games. We would really appreciate it if you fill out our questionnaire and participate in our research?</p>
+                        <button class="btn btn-primary" id="questionnaire-button">Fill Questionnaire</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -86,7 +86,13 @@ passport.deserializeUser((user, done) => {
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
+app.get('/terms', (req, res) => {
+    res.sendFile(path.join(__dirname, 'static', 'terms.html'));
+});
 
+app.get('/planningdepth', (req, res) => {
+    res.sendFile(path.join(__dirname, 'planningdepth.html'));
+});
 app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'about.html'));
 });

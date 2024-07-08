@@ -86,8 +86,6 @@
                 }
             })
             .then(data => {
-                console.log(data);
-                alert('Profile updated successfully!');
                 if (username) {
                     window.location.href = `/playvscomp?username=${username}`;
                 } else {
