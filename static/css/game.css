@@ -478,9 +478,9 @@ A:active {
     .canvas-container {
 		margin-top: 5vh;
         transform: rotate(-90deg);
-        width: 150vw;
+        width: 126vw;
         /* 80% of the view width (since it's rotated) */
-        height: 70vw;
+        height: 56vw;
         /* 80% of the view width */
         position: absolute;
         top: 50%;
@@ -496,9 +496,9 @@ A:active {
     /* Adjusting tile size for mobile view */
     .usedTile,
     .tile {
-        height: calc(68vw / 4);
+        height: calc(56vw / 4);
         /* Assuming 9 rows, adjust if different */
-        width: calc(150vw / 9);
+        width: calc(126vw / 9);
         /* Assuming 9 columns, adjust if different */
     }
 
