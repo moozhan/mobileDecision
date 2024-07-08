@@ -152,7 +152,35 @@
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="instructions-modal" tabindex="-1" role="dialog" aria-labelledby="instructionsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="instructionsModalLabel">How to Play</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="right-alt">
+                            <div class="right-content">
+                                <h3 class="main-subtitle">You will be playing a few games called <span style="font-weight: bold;">4-in-a-row </span>against the computer. </h3>
+                                <h3 class="main-subtitle">In this game, you and the computer place black or white pieces on a game board. Whoever gets <span style="font-weight: bold;"> 4 pieces </span> in a row <span style="font-weight: bold;">in any direction, horizontal, vertical or diagonal </span>, they win!  </h3>
+                                <h3 class="main-subtitle">If the board is full and no-one has 4-in-a-row, it's a tie!  </h3>
+                                <img src="/img/instruction.gif" class="gif"> 
+                                <h3 class="main-subtitle">You will play different color piece each game.  </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class='container-fluid text-center'>
         <div class='row'>
             <div class="headertext col-ml-8 col-ml-offset-2">
@@ -166,5 +194,14 @@
         </div>
     </div>
     <script src="/js/script.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Existing code ...
+
+            $('#help').on('click', function() {
+                $('#instructions-modal').modal('show');
+            });
+        });
+    </script>
 </body>
 </html>
