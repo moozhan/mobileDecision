@@ -14,28 +14,31 @@
     <script src="/js/lib/underscore-min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <script src="/js/util.js"></script>
-    <script src="/js/game.js"></script>
+    <!-- <script src="/js/util.js"></script> -->
+    <!-- <script src="/js/game.js"></script> -->
     <script src="/js/AI.js"></script>
+    <script src="/js/4inarow_base.js"></script>
+	<script src="/js/4inarow_standalone.js"></script>
     <script src="../scripts/Code/makemove.js"></script>
 
-    <script>
-        var blocks, player;
-        var gameCount = 0; // Initialize game count
-        var isGuestUser = false; // Variable to check if the user is a guest
 
-        M=9;
-        N=4;
-        K=4;
+    <script>
+        // var blocks, player;
+        var gameCount = 0; // Initialize game count
+        // var isGuestUser = false; // Variable to check if the user is a guest
+
+        // M=9;
+        // N=4;
+        // K=4;
 
         $(document).ready(function() {
-            current_block = 0;
-            player = new Player();
+            // current_block = 0;
+            // player = new Player();
 
-            board = new Board();
-            board.create_tiles();
-            blocks = [new Condition_AI(60)];
-            blocks[current_block].run();
+            // board = new Board();
+            // board.create_tiles();
+            // blocks = [new Condition_AI(60)];
+            // blocks[current_block].run();
 
             const urlParams = new URLSearchParams(window.location.search);
             const username = urlParams.get('username');
